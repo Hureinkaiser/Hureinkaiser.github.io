@@ -61,6 +61,17 @@
   .btn.solid:hover{background:var(--pine);transform:translateY(-1px);}
   .btn.ghost{border:1px solid var(--line-strong);color:var(--ink);}
   .btn.ghost:hover{border-color:var(--ink);transform:translateY(-1px);}
+  .herorow{display:flex;align-items:center;gap:48px;justify-content:space-between;position:relative;z-index:2;}
+  .herotext{flex:1 1 auto;min-width:0;}
+  .avatar-wrap{flex:0 0 auto;position:relative;width:210px;height:210px;}
+  .avatar-wrap::after{content:"";position:absolute;inset:-10px;border:1px solid var(--gold);border-radius:50%;opacity:.55;pointer-events:none;}
+  .avatar{width:210px;height:210px;border-radius:50%;object-fit:cover;object-position:center;display:block;position:relative;z-index:1;box-shadow:0 18px 44px -26px rgba(19,36,31,.75);}
+  .avatar-fallback{position:absolute;inset:0;border-radius:50%;background:var(--pine);color:var(--paper);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:600;font-size:3.4rem;letter-spacing:.02em;}
+  @media(max-width:860px){
+    .herorow{flex-direction:column-reverse;align-items:flex-start;gap:30px;}
+    .avatar-wrap,.avatar{width:132px;height:132px;}
+    .avatar-fallback{font-size:2.2rem;}
+  }
   .scanline{position:absolute;right:-10%;top:0;bottom:0;width:52%;background:repeating-linear-gradient(180deg,transparent 0 30px,rgba(19,36,31,.035) 30px 31px);-webkit-mask:linear-gradient(90deg,transparent,#000 60%);mask:linear-gradient(90deg,transparent,#000 60%);pointer-events:none;}
   .scanline::before{content:"";position:absolute;left:0;right:0;height:120px;background:linear-gradient(180deg,transparent,rgba(187,133,42,.10),transparent);animation:scan 5.5s linear infinite;}
   @keyframes scan{0%{transform:translateY(-140px);}100%{transform:translateY(100vh);}}
@@ -170,16 +181,26 @@
 <header class="hero">
   <div class="scanline" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="readout">
-      <span class="tag hot">AI · Data · Systems</span>
-      <span class="tag">Atlanta, GA</span>
-      <span class="tag">Computer Systems Engineering · UGA</span>
-    </div>
-    <h1>Hurein<br>Kaiser</h1>
-    <p class="thesis">I work across <b>AI, data, and software</b>, taking models from training to the systems that run them.</p>
-    <div class="herometa">
-      <a class="btn solid" href="#projects">View projects</a>
-      <a class="btn ghost" href="mailto:Hureinkaiser03@yahoo.com">Get in touch</a>
+    <div class="herorow">
+      <div class="herotext">
+        <div class="readout">
+          <span class="tag hot">AI · Data · Systems</span>
+          <span class="tag">Atlanta, GA</span>
+          <span class="tag">Computer Systems Engineering · UGA</span>
+        </div>
+        <h1>Hurein<br>Kaiser</h1>
+        <p class="thesis">I work across <b>AI, data, and software</b>, taking models from training to the systems that run them.</p>
+        <div class="herometa">
+          <a class="btn solid" href="#projects">View projects</a>
+          <a class="btn ghost" href="mailto:Hureinkaiser03@yahoo.com">Get in touch</a>
+        </div>
+      </div>
+      <div class="avatar-wrap">
+        <!-- Initials show until photo.jpg loads, and if it is missing. -->
+        <div class="avatar-fallback" aria-hidden="true">HK</div>
+        <img class="avatar" src="photo.jpg" alt="Hurein Kaiser"
+             onerror="this.style.display='none'" />
+      </div>
     </div>
   </div>
 </header>
@@ -492,6 +513,5 @@
     </div>
   </div>
 </footer>
-
 </body>
 </html>
