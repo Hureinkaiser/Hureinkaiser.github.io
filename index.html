@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hurein Kaiser · AI, Data & Systems Engineering</title>
+<meta name="description" content="Hurein Kaiser. Computer Systems Engineering. Applied AI, machine learning, data engineering, and software." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#EEF1EC;
+    --ink:#13241F;
+    --ink-soft:#3A4A43;
+    --pine:#0E2B25;
+    --gold:#BB852A;
+    --gold-soft:#D6A64B;
+    --sage:#BBCEAC;
+    --sage-line:#9BB389;
+    --sage-ink:#22301B;
+    --sand:#E7D9BE;
+    --sand-line:#C6B085;
+    --line:rgba(19,36,31,.14);
+    --line-strong:rgba(19,36,31,.28);
+    --line-light:rgba(238,241,236,.16);
+    --maxw:1080px;
+    --display:"Space Grotesk",sans-serif;
+    --body:"Inter",sans-serif;
+    --mono:"JetBrains Mono",monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  ::selection{background:var(--gold);color:var(--paper);}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  .mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;}
+
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(238,241,236,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;}
+  .brandmark{font-family:var(--mono);font-weight:700;font-size:.82rem;letter-spacing:.12em;}
+  .brandmark span{color:var(--gold);}
+  .nav{display:flex;gap:26px;}
+  .nav a{font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;color:var(--ink-soft);padding:4px 0;position:relative;transition:color .2s;}
+  .nav a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1.5px;background:var(--gold);transition:width .22s ease;}
+  .nav a:hover{color:var(--ink);}
+  .nav a:hover::after{width:100%;}
+  @media(max-width:760px){.nav{display:none;}}
+
+  .hero{padding:78px 0 66px;position:relative;overflow:hidden;}
+  .hero .readout{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:26px;}
+  .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line-strong);border-radius:2px;padding:5px 9px;color:var(--ink-soft);}
+  .tag.hot{border-color:var(--gold);color:var(--gold);}
+  h1{font-family:var(--display);font-weight:600;font-size:clamp(2.9rem,8vw,5.4rem);line-height:.98;letter-spacing:-.02em;margin:0 0 22px;}
+  .thesis{font-family:var(--display);font-weight:400;font-size:clamp(1.15rem,2.6vw,1.6rem);line-height:1.35;max-width:34ch;color:var(--ink-soft);margin:0 0 34px;}
+  .thesis b{color:var(--ink);font-weight:500;}
+  .herometa{display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;text-decoration:none;padding:11px 16px;border-radius:3px;transition:transform .15s, background .2s, color .2s;}
+  .btn.solid{background:var(--ink);color:var(--paper);}
+  .btn.solid:hover{background:var(--pine);transform:translateY(-1px);}
+  .btn.ghost{border:1px solid var(--line-strong);color:var(--ink);}
+  .btn.ghost:hover{border-color:var(--ink);transform:translateY(-1px);}
+  .scanline{position:absolute;right:-10%;top:0;bottom:0;width:52%;background:repeating-linear-gradient(180deg,transparent 0 30px,rgba(19,36,31,.035) 30px 31px);-webkit-mask:linear-gradient(90deg,transparent,#000 60%);mask:linear-gradient(90deg,transparent,#000 60%);pointer-events:none;}
+  .scanline::before{content:"";position:absolute;left:0;right:0;height:120px;background:linear-gradient(180deg,transparent,rgba(187,133,42,.10),transparent);animation:scan 5.5s linear infinite;}
+  @keyframes scan{0%{transform:translateY(-140px);}100%{transform:translateY(100vh);}}
+  @media(max-width:760px){.scanline{display:none;}}
+
+  section{padding:64px 0;border-top:1px solid var(--line);}
+  .sechead{display:flex;align-items:baseline;gap:16px;margin-bottom:38px;}
+  .sechead .idx{font-family:var(--mono);font-size:.78rem;color:var(--gold);font-weight:700;}
+  .sechead h2{font-family:var(--display);font-weight:600;font-size:clamp(1.5rem,4vw,2.2rem);letter-spacing:-.01em;margin:0;}
+  .sechead .rule{flex:1;height:1px;background:var(--line);align-self:center;}
+
+  .about p{font-size:1.18rem;line-height:1.65;max-width:64ch;color:var(--ink-soft);}
+  .about p b{color:var(--ink);font-weight:600;}
+
+  .role{border:1px solid var(--line);border-radius:6px;padding:28px 30px 30px;margin-bottom:20px;background:linear-gradient(180deg,rgba(255,255,255,.4),transparent);transition:border-color .2s, box-shadow .25s, transform .2s;}
+  .role:hover{border-color:var(--line-strong);box-shadow:0 10px 34px -22px rgba(19,36,31,.5);}
+  .role.feature{background:var(--pine);color:var(--paper);border-color:transparent;}
+  .role.feature .r-org,.role.feature .r-sum,.role.feature li{color:rgba(238,241,236,.82);}
+  .role.feature .r-title{color:var(--paper);}
+  .role.feature .statusrow .tag{border-color:var(--line-light);color:rgba(238,241,236,.72);}
+  .role.feature .statusrow .tag.hot{border-color:var(--gold-soft);color:var(--gold-soft);}
+  .role.feature ul.plain li::before{border-color:var(--gold-soft);}
+  .role.indie{background:var(--sand);border-color:var(--sand-line);}
+  .role.indie:hover{border-color:#8C6F38;box-shadow:0 10px 34px -22px rgba(90,68,20,.5);}
+  .role.indie .r-org{color:#6B5A33;}
+  .role.indie .beat .k{color:#9A6B18;}
+  .role.indie .statusrow .tag.hot{border-color:#9A6B18;color:#8C5F12;}
+
+  .r-top{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:baseline;}
+  .r-title{font-family:var(--display);font-weight:600;font-size:1.3rem;margin:0;letter-spacing:-.01em;line-height:1.15;}
+  .r-org{font-family:var(--mono);font-size:.75rem;letter-spacing:.05em;color:var(--ink-soft);margin-top:5px;}
+  .r-when{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--gold);white-space:nowrap;}
+  .role.feature .r-when{color:var(--gold-soft);}
+  .statusrow{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 18px;}
+  .r-sum{margin:0 0 14px;color:var(--ink-soft);}
+
+  .beats{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:14px;}
+  .beat{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:start;}
+  .beat .k{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding-top:3px;}
+  .role.feature .beat .k{color:var(--gold-soft);}
+  .beat .v{margin:0;line-height:1.55;}
+  .beat b{color:var(--ink);font-weight:600;}
+  .role.feature .beat b{color:#fff;}
+  @media(max-width:560px){.beat{grid-template-columns:1fr;gap:4px;}}
+
+  ul.plain{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:9px;}
+  ul.plain li{padding-left:20px;position:relative;color:var(--ink-soft);line-height:1.55;}
+  ul.plain li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border:1.5px solid var(--gold);border-radius:1px;}
+
+  .pgroup{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:6px 0 22px;display:flex;align-items:center;gap:14px;}
+  .pgroup.second{margin-top:46px;}
+  .pgroup::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  .projgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  @media(max-width:720px){.projgrid{grid-template-columns:1fr;}}
+  .proj{background:var(--sage);border:1px solid var(--sage-line);border-radius:6px;padding:24px;display:flex;flex-direction:column;gap:11px;color:var(--sage-ink);transition:transform .2s, box-shadow .25s, border-color .2s;}
+  .proj:hover{transform:translateY(-2px);box-shadow:0 12px 30px -20px rgba(14,43,37,.55);border-color:var(--pine);}
+  .proj .course{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:#6C7A2E;text-transform:uppercase;}
+  .proj h3{font-family:var(--display);font-weight:600;font-size:1.12rem;margin:0;letter-spacing:-.01em;line-height:1.2;color:var(--pine);}
+  .proj p{margin:0;font-size:.94rem;color:#31402A;line-height:1.5;}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px;}
+  .chip{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;color:#3B4A2F;border:1px solid var(--sage-line);border-radius:2px;padding:3px 7px;text-transform:uppercase;}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  @media(max-width:720px){.cols{grid-template-columns:1fr;gap:34px;}}
+  .subhead{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:0 0 16px;}
+  .skillset{display:flex;flex-wrap:wrap;gap:8px;}
+  .skill{border:1px solid var(--line);border-radius:3px;padding:7px 11px;font-size:.86rem;color:var(--ink-soft);transition:border-color .2s,color .2s;}
+  .skill:hover{border-color:var(--gold);color:var(--ink);}
+  .certlist{list-style:none;padding:0;margin:0;display:grid;gap:12px;}
+  .certlist li{padding-left:22px;position:relative;color:var(--ink-soft);line-height:1.45;}
+  .certlist li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--gold);font-weight:700;font-family:var(--mono);}
+
+  .edu{border:1px solid var(--line);border-radius:6px;padding:26px 28px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .edu h3{font-family:var(--display);font-weight:600;font-size:1.2rem;margin:0 0 6px;}
+  .edu .deg{color:var(--ink-soft);}
+  .edu .when{font-family:var(--mono);font-size:.74rem;color:var(--gold);letter-spacing:.06em;white-space:nowrap;}
+
+  footer{background:var(--pine);color:var(--paper);padding:70px 0 40px;border-top:none;}
+  footer h2{font-family:var(--display);font-weight:600;font-size:clamp(1.8rem,5vw,2.8rem);margin:0 0 10px;letter-spacing:-.01em;}
+  footer p{color:rgba(238,241,236,.7);max-width:48ch;margin:0 0 28px;}
+  .flinks{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:44px;}
+  .flinks a{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid var(--line-light);border-radius:3px;padding:12px 16px;color:var(--paper);transition:background .2s,transform .15s;}
+  .flinks a:hover{background:rgba(238,241,236,.08);transform:translateY(-1px);}
+  .fbottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line-light);padding-top:22px;}
+  .fbottom span{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:rgba(238,241,236,.5);text-transform:uppercase;}
+
+  a.btn:focus-visible,.nav a:focus-visible,.flinks a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto;}.scanline::before{animation:none;}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brandmark">HK<span>/</span>KAISER</div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="scanline" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="readout">
+      <span class="tag hot">AI · Data · Systems</span>
+      <span class="tag">Atlanta, GA</span>
+      <span class="tag">Computer Systems Engineering · UGA</span>
+    </div>
+    <h1>Hurein<br>Kaiser</h1>
+    <p class="thesis">I work across <b>AI, data, and software</b>, taking models from training to the systems that run them.</p>
+    <div class="herometa">
+      <a class="btn solid" href="#projects">View projects</a>
+      <a class="btn ghost" href="mailto:Hureinkaiser03@yahoo.com">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<section id="about" class="about">
+  <div class="wrap">
+    <div class="sechead"><span class="idx">01</span><h2>About</h2><span class="rule"></span></div>
+    <p>Computer Systems Engineering student at the University of Georgia, working across <b>applied AI, machine learning, data engineering, and software</b>. Through internships at Cox Enterprises, Mercedes-Benz USA, and the USPTO, I've built LLM powered automation, evaluated production Gen AI tools, engineered data observability pipelines, and shipped analytics that decision makers actually use. I move comfortably from a training loop to a deployed system to the dashboard a stakeholder reads.</p>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sechead"><span class="idx">02</span><h2>Experience</h2><span class="rule"></span></div>
+
+    <article class="role">
+      <div class="r-top">
+        <div><h3 class="r-title">Quality Assurance Engineer Intern</h3><div class="r-org">Cox Enterprises</div></div>
+        <div class="r-when">May 2026 to Aug 2026</div>
+      </div>
+      <div class="statusrow"><span class="tag">Tosca</span><span class="tag">Test Automation</span><span class="tag">CI/CD</span></div>
+      <ul class="plain">
+        <li>Design, develop, and maintain automated test scripts with the Tosca framework, partnering with the Delivery Team across the full development lifecycle to keep releases ready to ship.</li>
+        <li>Build and execute comprehensive test plans across functional, regression, and integration testing, tracking defect metrics and coverage to inform release decisions.</li>
+        <li>Collaborate with test engineers to prioritize, schedule, and execute automation scripts, streamlining test cycles and reducing manual testing effort.</li>
+      </ul>
+    </article>
+
+    <article class="role">
+      <div class="r-top">
+        <div><h3 class="r-title">Data Engineering &amp; IT Intern</h3><div class="r-org">Mercedes-Benz USA</div></div>
+        <div class="r-when">Jun 2025 to Aug 2025</div>
+      </div>
+      <div class="statusrow"><span class="tag">Databricks</span><span class="tag">Delta Lake</span><span class="tag">LLMs</span><span class="tag">Power BI</span></div>
+      <ul class="plain">
+        <li>Led testing and evaluation of Gen AI chatbot Genie for Dealer 360, documenting system gaps and delivering detailed improvement recommendations for reporting accuracy and automation.</li>
+        <li>Led an agentic LLM framework for data integrity checking, creating synthetic supervision data and structured inference outputs to support auditability, fine tuning, and scalable deployment.</li>
+        <li>Translated governance findings into executive facing Power BI dashboards, surfacing data quality KPIs and validation pass rates across engineering and business stakeholders.</li>
+        <li>Architected data observability workflows on Delta Lake's transaction log with SQL stored procedures, enabling full lineage tracing and audit ready documentation of data quality thresholds.</li>
+      </ul>
+    </article>
+
+    <article class="role">
+      <div class="r-top">
+        <div><h3 class="r-title">Engineering Innovation Intern</h3><div class="r-org">U.S. Patent &amp; Trademark Office (USPTO)</div></div>
+        <div class="r-when">Jun 2024 to Feb 2025</div>
+      </div>
+      <div class="statusrow"><span class="tag">Python</span><span class="tag">Statistical Analysis</span></div>
+      <ul class="plain">
+        <li>Engineered a Python prototype to surface statistically significant correlations between 30 search features and patent prosecution timelines across hundreds of applications.</li>
+        <li>Paired quantitative findings with deep dive patent case analyses to evaluate procedural outcomes under frameworks that predate the AIA.</li>
+      </ul>
+    </article>
+
+    <article class="role">
+      <div class="r-top">
+        <div><h3 class="r-title">Pathways Internship, Tax Examining</h3><div class="r-org">Internal Revenue Service (IRS)</div></div>
+        <div class="r-when">Jul 2023 to Jun 2024</div>
+      </div>
+      <div class="statusrow"><span class="tag">Data Analysis</span><span class="tag">Risk &amp; Compliance</span><span class="tag">Process Evaluation</span></div>
+      <ul class="plain">
+        <li>Analyzed data and stakeholder feedback to refine the scope of financial reviews, improving decision making accuracy and operational efficiency.</li>
+        <li>Conducted in depth evaluations of financial processes, offering insights that enhanced examination workflows and promoted regulatory compliance.</li>
+        <li>Collaborated with cross functional teams on financial and regulatory studies, identifying trends and emerging risks that influenced strategic planning and compliance initiatives.</li>
+      </ul>
+    </article>
+
+    <article class="role">
+      <div class="r-top">
+        <div><h3 class="r-title">Lead Student Technician</h3><div class="r-org">UGA Fabrication Lab &amp; Machine Shop</div></div>
+        <div class="r-when">May 2026 to Present</div>
+      </div>
+      <ul class="plain">
+        <li>Support 120+ mechanical and electrical engineering students fabricating prototypes across 100+ capstone projects each semester.</li>
+        <li>Restructured training protocols and sourced higher quality machine components, reducing maintenance by 40% and projecting $2,000 in biannual savings.</li>
+      </ul>
+    </article>
+
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sechead"><span class="idx">03</span><h2>Projects</h2><span class="rule"></span></div>
+
+    <div class="pgroup">Internship Projects</div>
+
+    <!-- GENIE deep -->
+    <article class="role feature">
+      <div class="r-top">
+        <div><h3 class="r-title">Dealer 360: Data Pipeline, KPIs &amp; Genie AI Assistant</h3><div class="r-org">Mercedes-Benz USA</div></div>
+        <div class="r-when">2025</div>
+      </div>
+      <div class="statusrow">
+        <span class="tag hot">Gen AI · Prompt Engineering</span>
+        <span class="tag">Databricks Genie · Claude</span>
+        <span class="tag">Unity Catalog · Power BI</span>
+      </div>
+      <p class="r-sum">A full path from raw dealership data to a natural language assistant leadership could query in plain English. Databricks Genie is an AI data agent that runs on Anthropic's Claude models in the platform, turning questions into SQL against governed data. I owned the work end to end: standing up and cleaning the data, defining the metrics with the business, shipping a Power BI dashboard, then building and hardening Genie on the same Unity Catalog tables and views.</p>
+      <ul class="beats">
+        <li class="beat"><span class="k">What I fed it</span><p class="v">First I built the foundation, working across sales, IT, data governance, data quality, and product management. I landed Dealer 360 in Databricks as <b>Delta Lake tables in Unity Catalog</b>, cleaned and updated records with governance, and defined the KPI math with product managers. Then I fed Genie that governed schema plus <b>prompt engineered instructions</b> teaching it what each column meant and how to answer.</p></li>
+        <li class="beat"><span class="k">What I rejected</span><p class="v">I never took Genie's answers at face value. In development it would pull from the wrong column or answer incorrectly, so I read the <b>SQL it generated</b> to trace where each value came from and rejected anything that did not tie back to the right source.</p></li>
+        <li class="beat"><span class="k">The judgment</span><p class="v">Knowing the data deeply from the cleaning and KPI work let me catch subtle errors a surface check would miss. With product managers I set what a correct answer looked like for each metric, then steered the instructions and the underlying data toward it.</p></li>
+        <li class="beat"><span class="k">What changed</span><p class="v">Iterating back and forth on instructions and data, Genie's answers became reliable enough to trust. The dashboard went to leadership, and the assistant let business users ask questions directly against governed tables.</p></li>
+        <li class="beat"><span class="k">Value</span><p class="v">Leadership and business users could <b>self serve dealership reporting in plain English</b> instead of navigating dashboards or waiting on an analyst, cutting time to insight and widening who could get answers straight from the data.</p></li>
+      </ul>
+    </article>
+
+    <!-- COX -->
+    <article class="role feature">
+      <div class="r-top">
+        <div><h3 class="r-title">QA Automation with LLMs</h3><div class="r-org">Cox Enterprises</div></div>
+        <div class="r-when">2026</div>
+      </div>
+      <div class="statusrow">
+        <span class="tag hot">LLM automation</span>
+        <span class="tag">Claude · Copilot</span>
+        <span class="tag">Tosca · Python</span>
+      </div>
+      <p class="r-sum">Test authoring was the release bottleneck. Every feature meant hand writing cases from requirements before building them into Tosca, and coverage gaps surfaced late in regression where they cost the most. I built a workflow around LLMs in front of the automation framework with two parts: test case generation from requirements, and retrieval over the Tosca module library and past defect history to surface coverage gaps before a release decision. A person stayed in the loop where judgment mattered.</p>
+      <ul class="beats">
+        <li class="beat"><span class="k">What I fed it</span><p class="v">I started by feeding raw requirement documents and full user stories, but drafts came back generic and low value. I switched to feeding <b>structured acceptance criteria plus field level constraints only</b>, which produced far sharper test cases.</p></li>
+        <li class="beat"><span class="k">What I rejected</span><p class="v">The model never wrote directly into the Tosca suite. Generated cases sat behind a human review gate, because roughly <b>one in three</b> came back as duplicates of existing coverage or invalid once real system state was accounted for.</p></li>
+        <li class="beat"><span class="k">The judgment</span><p class="v">The value was not AI writing the tests. It was clearing the blank page step so I could focus on which edge cases carried real risk and which cases would block a release. Copilot handled inline drafting in the IDE and Claude handled longer requirement documents.</p></li>
+        <li class="beat"><span class="k">What changed</span><p class="v">The final flow ran structured criteria into draft cases into a review gate into Tosca modules. Authoring time dropped by <b>roughly a third</b>, coverage gaps surfaced <b>before regression instead of during it</b>, and defect metrics fed straight into release decisions.</p></li>
+        <li class="beat"><span class="k">Value</span><p class="v">Freed QA capacity from the slowest part of the release cycle and moved coverage gaps earlier, where defects are cheaper to fix, giving the Delivery Team <b>faster and better informed release decisions</b>.</p></li>
+      </ul>
+    </article>
+
+    <!-- AGENTIC framework -->
+    <article class="role feature">
+      <div class="r-top">
+        <div><h3 class="r-title">NLP Predictive Modeling &amp; Agentic Data Integrity</h3><div class="r-org">Mercedes-Benz USA</div></div>
+        <div class="r-when">2025</div>
+      </div>
+      <div class="statusrow"><span class="tag hot">NLP · XGBoost</span><span class="tag">TF-IDF · SMOTE</span><span class="tag">Agentic LLM</span></div>
+      <p class="r-sum">Built a production ready pipeline that turns unstructured free text into reliable predictions, then layered an agentic LLM framework on top to keep the data feeding it trustworthy.</p>
+      <ul class="beats">
+        <li class="beat"><span class="k">What I fed it</span><p class="v">Unstructured free text, vectorized with <b>TF-IDF</b> into features an <b>XGBoost</b> classifier could learn from. The classes were imbalanced, so I applied <b>SMOTE</b> to synthesize minority examples and stop the model from being swamped by the majority class.</p></li>
+        <li class="beat"><span class="k">What I rejected</span><p class="v">I did not trust a single train and test score. I rejected models that looked good on paper but failed under <b>cross validation</b> or on the precision, recall, and ROC/PR curves, using those and feature importance to keep only what held up.</p></li>
+        <li class="beat"><span class="k">The judgment</span><p class="v">High precision mattered more than raw accuracy here, so I tuned toward it and built the workflow to be <b>modular and production ready</b> rather than a one off notebook, so it could be rerun and trusted.</p></li>
+        <li class="beat"><span class="k">What changed</span><p class="v">The result was a transparent, reliable classification workflow. On top of it I led an <b>agentic LLM framework for data integrity checking</b>, creating synthetic supervision data and structured inference outputs to support auditability, fine tuning, and scalable deployment.</p></li>
+        <li class="beat"><span class="k">Value</span><p class="v">Turned messy free text into a signal the business could act on, with a workflow <b>transparent enough to trust</b> and an integrity layer that kept the inputs clean at scale.</p></li>
+      </ul>
+    </article>
+
+    <div class="pgroup second">Independent &amp; Hackathon Projects</div>
+
+    <article class="role indie">
+      <div class="r-top">
+        <div><h3 class="r-title">Predictive Irrigation Water Budget on OpenET</h3><div class="r-org">Agriculture · Water Conservation</div></div>
+        <div class="r-when">In progress</div>
+      </div>
+      <div class="statusrow"><span class="tag hot">OpenET API</span><span class="tag">Forecasting</span><span class="tag">Convex Optimization</span></div>
+      <p class="r-sum">Irrigation accounts for the large majority of consumptive water use in the American West, and much of it is still scheduled by calendar rather than by what the crop actually needs. This schedules water against forecasted demand, then allocates a capped drought budget across fields to maximize total yield per drop.</p>
+      <ul class="beats">
+        <li class="beat"><span class="k">Why</span><p class="v">Watering on a fixed calendar overwaters in cool weeks and underwaters in hot ones. Reactive scheduling that responds only once crop stress appears is no better, since by then both water and yield are already lost. The useful position is in between: forecast demand a week out and irrigate to it, and under a cap treat water as a <b>budget to allocate</b> rather than a per field decision made in isolation.</p></li>
+        <li class="beat"><span class="k">Data &amp; APIs</span><p class="v">Field geometry posts to the <b>OpenET API</b>, a NASA backed service that returns satellite derived evapotranspiration at quarter acre resolution from an ensemble of models. I pull actual ET, reference ET, and precipitation per field, then derive the crop coefficient (ETa over ETo) as the state variable. <b>NOAA</b> forecasts supply forward temperature, humidity, wind, and solar radiation.</p></li>
+        <li class="beat"><span class="k">Modeling</span><p class="v">A gradient boosted regressor forecasts next period reference ET from the weather features, and the crop coefficient carries the field's own phenology. Predicted demand is ETc minus effective rainfall, run as a rolling soil water balance so the model tracks depletion against available water rather than resetting each period. Backtesting is walk forward on prior seasons to avoid leaking future weather into past predictions.</p></li>
+        <li class="beat"><span class="k">Allocation</span><p class="v">Yield response to water is concave, with sharp gains while a crop is stressed and diminishing returns near full demand. That makes the allocation a convex problem, so a water filling routine assigns each marginal unit to whichever field gains the most area weighted yield from it, until the budget is exhausted. The output is a per field depth in millimeters, a fill percentage against demand, and gallons saved versus a calendar baseline.</p></li>
+        <li class="beat"><span class="k">Value</span><p class="v">Because the allocator concentrates cuts where the yield penalty is smallest, a constrained budget loses far less production than an even percentage cut across every field. Trimming consumptive use even a few percent across a district leaves real water in stressed basins and lowers pumping energy and cost at the same time.</p></li>
+      </ul>
+    </article>
+
+    <article class="role indie">
+      <div class="r-top">
+        <div><h3 class="r-title">Carbon Aware Task Scheduler Agent</h3><div class="r-org">Energy · Grid Decarbonization</div></div>
+        <div class="r-when">Prototype</div>
+      </div>
+      <div class="statusrow"><span class="tag hot">Carbon Intensity API</span><span class="tag">LLM Tool Use</span><span class="tag">Python · Gradio</span></div>
+      <p class="r-sum">Grid carbon intensity swings widely across a single day, so the same kilowatt hour can carry several times the emissions depending on when it is drawn. This takes a flexible task described in plain language and schedules it into the cleanest window that still meets its deadline.</p>
+      <ul class="beats">
+        <li class="beat"><span class="k">Why</span><p class="v">Running immediately is simplest but lands on whatever the grid happens to be burning. Waiting for the single greenest hour is cleanest but misses deadlines, which is why naive green scheduling gets switched off in practice. Treating the deadline as a hard constraint and carbon as the objective keeps the savings without breaking the workflow.</p></li>
+        <li class="beat"><span class="k">Data &amp; APIs</span><p class="v">A 24 hour forward forecast in 30 minute slots comes from the <b>National Grid Carbon Intensity API</b>, which is public and needs no key. Because a live dependency should never take a demo down, the client degrades to a synthetic diurnal curve modeling the evening peak, the midday solar dip, and the overnight trough, so the optimizer path stays testable offline.</p></li>
+        <li class="beat"><span class="k">Optimizer</span><p class="v">Scheduling reduces to a minimum mean sliding window over the forecast: for a task spanning n slots, evaluate every contiguous window whose end index falls before the deadline and take the lowest average intensity. Linear in the forecast length, deterministic, and covered by a self test asserting the chosen window never scores worse than running immediately.</p></li>
+        <li class="beat"><span class="k">Agent layer</span><p class="v">An LLM parses the plain language request and calls the scheduler through a typed <b>tool schema</b>, extracting duration and deadline into structured arguments. The model chooses inputs and delegates execution; the optimizer stays the single source of truth, so the schedule is never a hallucinated time. A deterministic parser backs it up when no API key is present.</p></li>
+        <li class="beat"><span class="k">Value</span><p class="v">On representative daily curves, shifting a multi hour job inside a same day deadline cuts its emissions by roughly a quarter to a half, with no hardware and no change to the work itself. The same pattern scales from a laptop training run to data center batch jobs and smart appliance load.</p></li>
+      </ul>
+    </article>
+
+    <div class="pgroup second">Academic Projects · Applied ML &amp; Systems</div>
+
+    <div class="projgrid">
+
+      <article class="proj">
+        <span class="course">INFO 3000E · MP2</span>
+        <h3>Heritage Building Image Classifier</h3>
+        <p>Built and trained a convolutional neural network in PyTorch to classify heritage building types. I assembled and augmented the image dataset, set up train and validation splits, and tuned the training loop (loss, optimizer, epochs) to lift validation accuracy on a small, imbalanced dataset.</p>
+        <div class="chips"><span class="chip">PyTorch</span><span class="chip">CNN</span><span class="chip">Data Augmentation</span></div>
+      </article>
+
+      <article class="proj">
+        <span class="course">INFO 4000E</span>
+        <h3>VGG16 Transfer Learning</h3>
+        <p>Fine tuned a pretrained VGG16 backbone on GPU for a new image classification task. I froze the early convolutional layers, retrained the classifier head, and used augmentation and learning rate scheduling to adapt a large vision model with limited data.</p>
+        <div class="chips"><span class="chip">Transfer Learning</span><span class="chip">VGG16</span><span class="chip">GPU Training</span></div>
+      </article>
+
+      <article class="proj">
+        <span class="course">INFO 4000E</span>
+        <h3>Q Learning Agent</h3>
+        <p>Implemented discrete Q learning from scratch, a reinforcement learning agent that learns an optimal policy through reward driven value updates across the state and action space. I tuned exploration versus exploitation and the learning rate.</p>
+        <div class="chips"><span class="chip">Reinforcement Learning</span><span class="chip">Q Learning</span></div>
+      </article>
+
+      <article class="proj">
+        <span class="course">INFO 3000E</span>
+        <h3>Classifier Comparison Study</h3>
+        <p>Trained and tuned Logistic Regression, Random Forest, and SVM with GridSearchCV cross validated hyperparameter search, then compared them on accuracy, precision, and recall to pick the best model for the task.</p>
+        <div class="chips"><span class="chip">scikit-learn</span><span class="chip">GridSearchCV</span><span class="chip">Model Selection</span></div>
+      </article>
+
+      <article class="proj">
+        <span class="course">INFO 3000E</span>
+        <h3>Unsupervised Learning &amp; NLP</h3>
+        <p>Used K-Means and PCA for structure discovery and dimensionality reduction on unlabeled data, and built a TF-IDF spam classifier. I engineered features straight from raw text and evaluated cluster quality and classification performance.</p>
+        <div class="chips"><span class="chip">K-Means</span><span class="chip">PCA</span><span class="chip">TF-IDF</span></div>
+      </article>
+
+      <article class="proj">
+        <span class="course">INFO 3000E</span>
+        <h3>ML Foundations From Scratch</h3>
+        <p>Implemented core machine learning building blocks by hand: gradient descent linear regression, outlier detection, price optimization, and neural network components. The goal was to understand the math beneath the libraries before relying on them.</p>
+        <div class="chips"><span class="chip">Gradient Descent</span><span class="chip">Neural Nets</span><span class="chip">NumPy</span></div>
+      </article>
+
+      <article class="proj">
+        <span class="course">INFO 3000E · MP3</span>
+        <h3>Model Deployment Service</h3>
+        <p>Wrapped a trained scikit-learn model in a Flask API for live inference. I handled request parsing, kept preprocessing consistent between training and serving, and returned structured JSON predictions.</p>
+        <div class="chips"><span class="chip">Flask</span><span class="chip">scikit-learn</span><span class="chip">Model Serving</span></div>
+      </article>
+
+      <article class="proj">
+        <span class="course">INFO 4000E</span>
+        <h3>Scrape to SQLite Web App</h3>
+        <p>Built a Flask application that scrapes web data into a SQLite database and serves it through a queryable interface. I designed the schema, handled the scraping pipeline, and wired up the routes end to end.</p>
+        <div class="chips"><span class="chip">Flask</span><span class="chip">Web Scraping</span><span class="chip">SQLite</span></div>
+      </article>
+
+      <article class="proj">
+        <span class="course">INFO 4000E</span>
+        <h3>FastAPI + Jinja Interface</h3>
+        <p>Built a server rendered web interface on FastAPI and Jinja templating, wiring backend routes to dynamic templates and passing structured data through to the rendered views.</p>
+        <div class="chips"><span class="chip">FastAPI</span><span class="chip">Jinja</span><span class="chip">Backend</span></div>
+      </article>
+
+    </div>
+    <p class="mono" style="margin-top:24px;color:var(--ink-soft);">Full source on GitHub · <a href="https://github.com/Hureinkaiser" style="color:var(--gold);text-decoration:none;">github.com/Hureinkaiser</a></p>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sechead"><span class="idx">04</span><h2>Skills &amp; Credentials</h2><span class="rule"></span></div>
+    <div class="cols">
+      <div>
+        <p class="subhead">Programming &amp; Tools</p>
+        <div class="skillset">
+          <span class="skill">Python</span><span class="skill">Java</span><span class="skill">SQL</span>
+          <span class="skill">AWS</span><span class="skill">Azure Databricks</span><span class="skill">Delta Lake</span>
+          <span class="skill">Docker / Kubernetes</span><span class="skill">CI/CD Pipelines</span><span class="skill">PyTorch</span>
+          <span class="skill">scikit-learn</span><span class="skill">LLM Frameworks</span><span class="skill">RAG Pipelines</span>
+          <span class="skill">Power BI</span><span class="skill">Tricentis Tosca</span><span class="skill">qTest</span>
+          <span class="skill">JIRA</span><span class="skill">Azure DevOps</span><span class="skill">Cloud Computing</span>
+        </div>
+        <p class="subhead" style="margin-top:30px;">Strengths</p>
+        <div class="skillset">
+          <span class="skill">Cross functional Collaboration</span><span class="skill">Stakeholder Communication</span>
+          <span class="skill">Technical Leadership</span><span class="skill">Analytical Problem Solving</span>
+          <span class="skill">Attention to Detail</span>
+        </div>
+      </div>
+      <div>
+        <p class="subhead">Certifications</p>
+        <ul class="certlist">
+          <li>Tricentis Tosca On-Prem Product Consultant</li>
+          <li>IBM: Applied DevOps Engineering</li>
+          <li>IBM: AI Engineering Professional</li>
+          <li>Google: System Administration &amp; IT Infrastructure</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sechead"><span class="idx">05</span><h2>Education</h2><span class="rule"></span></div>
+    <div class="edu">
+      <div>
+        <h3>University of Georgia, College of Engineering</h3>
+        <p class="deg">B.S. Computer Systems Engineering (in progress) · Certificate in Informatics · Certificate in Computing (completed) · Athens, GA</p>
+      </div>
+      <div class="when">Spring 2027</div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's build something.</h2>
+    <p>Always up for interesting problems across AI, data, and software. The fastest way to reach me is email.</p>
+    <div class="flinks">
+      <a href="mailto:Hureinkaiser03@yahoo.com">Email</a>
+      <a href="http://www.linkedin.com/in/hurein-kaiser">LinkedIn</a>
+      <a href="https://github.com/Hureinkaiser">GitHub</a>
+    </div>
+    <div class="fbottom">
+      <span>Hurein Kaiser · Atlanta, GA</span>
+      <span>Designed &amp; built · 2026</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
