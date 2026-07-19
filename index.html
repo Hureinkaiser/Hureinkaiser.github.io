@@ -10,20 +10,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --paper:#EEF1EC;
-    --ink:#13241F;
-    --ink-soft:#3A4A43;
-    --pine:#0E2B25;
-    --gold:#BB852A;
-    --gold-soft:#D6A64B;
-    --sage:#BBCEAC;
-    --sage-line:#9BB389;
-    --sage-ink:#22301B;
-    --sand:#E7D9BE;
-    --sand-line:#C6B085;
-    --line:rgba(19,36,31,.14);
-    --line-strong:rgba(19,36,31,.28);
-    --line-light:rgba(238,241,236,.16);
+    --paper:#F4F0F4;
+    --ink:#241326;
+    --ink-soft:#4C3552;
+    --pine:#42214A;
+    --gold:#6F680E;
+    --gold-soft:#C8BE2E;
+    --sage:#DCCADF;
+    --sage-line:#BCA3C1;
+    --sage-ink:#2E1832;
+    --sand:#E9E5BE;
+    --sand-line:#C5BD79;
+    --line:rgba(36,19,38,.15);
+    --line-strong:rgba(36,19,38,.30);
+    --line-light:rgba(244,240,244,.18);
     --maxw:1080px;
     --display:"Space Grotesk",sans-serif;
     --body:"Inter",sans-serif;
@@ -161,6 +161,22 @@
 
   a.btn:focus-visible,.nav a:focus-visible,.flinks a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
   @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto;}.scanline::before{animation:none;}}
+  /* plum + chartreuse overrides */
+  .topbar{background:rgba(244,240,244,.88);}
+  .scanline{background:repeating-linear-gradient(180deg,transparent 0 30px,rgba(36,19,38,.04) 30px 31px);}
+  .scanline::before{background:linear-gradient(180deg,transparent,rgba(182,172,32,.13),transparent);}
+  .avatar{box-shadow:0 18px 44px -26px rgba(36,19,38,.75);}
+  .role:hover{box-shadow:0 10px 34px -22px rgba(36,19,38,.5);}
+  .role.feature .r-org,.role.feature .r-sum,.role.feature li{color:rgba(244,240,244,.84);}
+  .role.feature .statusrow .tag{color:rgba(244,240,244,.74);}
+  .role.indie:hover{border-color:#8A8422;box-shadow:0 10px 34px -22px rgba(92,86,20,.5);}
+  .role.indie .r-org{color:#5E5A22;}
+  .role.indie .beat .k{color:#63600D;}
+  .role.indie .statusrow .tag.hot{border-color:#63600D;color:#63600F;}
+  .proj:hover{box-shadow:0 12px 30px -20px rgba(66,33,74,.55);}
+  .proj .course{color:#63600D;}
+  .proj p{color:#3B2A40;}
+  .chip{color:#4A3550;}
 </style>
 </head>
 <body>
@@ -513,5 +529,6 @@
     </div>
   </div>
 </footer>
+
 </body>
 </html>
